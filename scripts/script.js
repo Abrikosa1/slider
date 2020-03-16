@@ -80,11 +80,10 @@ bulletsBlock.addEventListener('click', (e) => {
 }); 
 
 
-/* let autoSlideTimer = setTimeout(function autoSlide() {
+let autoSlideTimer = setTimeout(function autoSlide() {
     if(animation === 1){
         index++;
         showSlide(index, 'left');
     }
     autoSlideTimer = setTimeout(autoSlide, 5000); 
   }, 5000);
- */
