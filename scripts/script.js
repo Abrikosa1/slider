@@ -55,21 +55,34 @@ const showSlide = (n, dir) => {
   moveSlide(index, dir);
 };
 
-buttonNext.addEventListener('click', () => {
+const runTimeout = () =>
+  setTimeout(function autoSlide() {
+    if (animation === 1) {
+      index++;
+      showSlide(index, 'left');
+    }
+    autoSlideTimer = setTimeout(autoSlide, 5000);
+  }, 5000);
+
+const hanldeRightClick = () => {
   clearTimeout(autoSlideTimer);
   if (animation === 1) {
     showSlide((index += 1), 'left');
   }
   autoSlideTimer = runTimeout();
-});
+};
 
-buttonPrev.addEventListener('click', () => {
+const hanldeLeftClick = () => {
   clearTimeout(autoSlideTimer);
   if (animation === 1) {
     showSlide((index -= 1), 'right');
   }
   autoSlideTimer = runTimeout();
-});
+};
+
+buttonNext.addEventListener('click', hanldeRightClick);
+
+buttonPrev.addEventListener('click', hanldeLeftClick);
 
 bulletsBlock.addEventListener('click', (e) => {
   clearTimeout(autoSlideTimer);
@@ -86,13 +99,15 @@ bulletsBlock.addEventListener('click', (e) => {
   autoSlideTimer = runTimeout();
 });
 
-const runTimeout = () =>
-  setTimeout(function autoSlide() {
-    if (animation === 1) {
-      index++;
-      showSlide(index, 'left');
-    }
-    autoSlideTimer = setTimeout(autoSlide, 5000);
-  }, 5000);
+document.addEventListener('keydown', (event) => {
+  switch (event.code) {
+    case 'ArrowLeft':
+      return hanldeLeftClick();
+    case 'ArrowRight':
+      return hanldeRightClick();
+    default:
+      return;
+  }
+});
 
 autoSlideTimer = runTimeout();
